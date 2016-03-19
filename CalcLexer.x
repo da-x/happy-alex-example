@@ -40,7 +40,7 @@ tokens :-
 {
 
 -- Some action helpers:
-tok' f (p, _, input) len = return $ Token p (f (B.take (fromIntegral len) input))
+tok' f (p, _, input, _) len = return $ Token p (f (B.take (fromIntegral len) input))
 tok x = tok' (\s -> x)
 tok_string x = tok' (\s -> x (B.unpack s))
 tok_read x = tok' (\s -> x (read (B.unpack s)))
@@ -69,7 +69,7 @@ data TokenClass
 
 alexEOF :: Alex Token
 alexEOF = do
-  (p, _, _) <- alexGetInput
+  (p, _, _, _) <- alexGetInput
   return $ Token p TokenEOF
 
 type AlexUserState = ()

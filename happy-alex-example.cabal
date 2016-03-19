@@ -16,8 +16,10 @@ executable happy-alex-example
   main-is:             Main.hs
   other-modules:       CalcParser
                      , CalcLexer
+                     , CalcParserBase
+                     , CalcParserUser
   -- other-extensions:
-  build-depends:       base >=4.7 && <4.8
+  build-depends:       base >=4.7
                      , bytestring
                      , array
   -- hs-source-dirs:
