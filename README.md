@@ -11,7 +11,7 @@ nicely written happy-plus-alex):
 
  * I'd like to leave as much as possible outside of the .x and
    .y files.
- * ghc-mod emacs syntax checking checkworks only if you generate some nasty symlinks:
+ * ghc-mod emacs syntax checking works only if you generate some nasty symlinks:
    (see TIPS)
  * It is possible to pass the token position to the parsed
    result (see the construction of Let).
