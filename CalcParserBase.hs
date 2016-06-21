@@ -6,10 +6,6 @@ module CalcParserBase
   , Token(..)
   , tokenToPosN
   , TokenClass(..)
-  , Exp(..)
-  , Exp1(..)
-  , Term(..)
-  , Factor(..)
   , AlexPosn
   , AlexState(..)
   , lexer
@@ -19,7 +15,7 @@ module CalcParserBase
 
 import CalcLexer
 
--- For readablity - these are the interface Happy expects:
+-- For readablity - this are the interface Happy expects:
 
 type Parser a = Alex a
 
@@ -29,23 +25,15 @@ thenP = (>>=)
 returnP :: a -> Parser a
 returnP = return
 
+alexShowError (line, column, e) = alexError $ "show-error: " ++ (show (line, column, e))
+
+alexGetPosition :: Alex (AlexPosn)
+alexGetPosition = Alex $ \s@AlexState{alex_pos=pos} -> Right (s, pos)
+
 happyError :: Parser a
-happyError = Alex $ \AlexState{alex_pos=pos} -> error (
-  "Parse error in " ++ show (pos) ++ "\n")
-
--- Now we define the data types of the Syntax
-
-data Exp  = Let AlexPosn String Exp Exp | Exp1 Exp1
-  deriving (Show)
-
-data Exp1 = Plus Exp1 Term | Minus Exp1 Term | Term Term
-  deriving (Show)
-
-data Term = Times Term Factor | Div Term Factor | Factor Factor
-  deriving (Show)
-
-data Factor = Int Int | Var String | Brack Exp
-  deriving (Show)
+happyError = do
+  (AlexPn _ line col) <- alexGetPosition
+  alexShowError (line, col, "syntax error" :: String)
 
 -- Link the lexer and the parser:
 

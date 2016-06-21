@@ -6,9 +6,10 @@ module CalcLexer
   , AlexState(..)
   , Token(..)
   , TokenClass(..)
+  , alexError
   , alexMonadScan
-  , tokenToPosN
   , runAlex
+  , tokenToPosN
   )
 where
 

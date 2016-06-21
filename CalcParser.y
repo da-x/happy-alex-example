@@ -2,6 +2,7 @@
 module CalcParser where
 
 import CalcParserBase
+import CalcParserData
 }
 
 %name happyParser
