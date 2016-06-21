@@ -14,10 +14,13 @@ cabal-version:       >=1.10
 
 executable happy-alex-example
   main-is:             Main.hs
-  other-modules:       CalcParser
-                     , CalcLexer
-                     , CalcParserBase
-                     , CalcParserUser
+  hs-source-dirs:      src
+  other-modules:       Calc
+                     , Calc.Parser
+                     , Calc.Lexer
+                     , Calc.Data
+                     , Calc.Base
+                     , Calc.Wrapper
   -- other-extensions:
   build-depends:       base >=4.7
                      , bytestring
@@ -25,3 +28,4 @@ executable happy-alex-example
   -- hs-source-dirs:
   build-tools:         happy, alex
   default-language:    Haskell2010
+  ghc-options:         -Wall

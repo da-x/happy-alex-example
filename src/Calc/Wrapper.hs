@@ -1,18 +1,21 @@
-module CalcParserUser
+module Calc.Wrapper
   ( parse
   , Error(..)
   , ErrClass(..)
   )
   where
 
-import qualified Data.ByteString.Lazy    as BL
-import           CalcParserData          (Exp)
-import           CalcParserBase          (runAlex)
-import           CalcParser              (happyParser)
-import Data.List (isPrefixOf)
+----------------------------------------------------------------------------
+import qualified Data.ByteString.Lazy as BL
+import           Data.List            (isPrefixOf)
+----
+import           Calc.Base            (runAlex)
+import           Calc.Data            (Exp)
+import           Calc.Parser          (happyParser)
+----------------------------------------------------------------------------
 
 data ErrClass
-    = Syntactical
+    = Syntactical (Maybe String)
     | Lexical
     | Message String
     deriving (Show, Eq)
@@ -32,9 +35,9 @@ parse s =
      in case runAlex s $ happyParser of
             Right x -> Right x
             Left str | showErrPrefix `isPrefixOf` str ->
-                          let (line, column, e) =
-                                  (read (drop (length showErrPrefix) str) :: (Int, Int, String))
-                           in Left (Error line column Syntactical)
+                          let (line, column, m) =
+                                  (read (drop (length showErrPrefix) str) :: (Int, Int, Maybe String))
+                           in Left (Error line column (Syntactical m))
                      | lexicalErrorPrefix `isPrefixOf` str ->
                           let info = drop (length lexicalErrorPrefix) str
                               lineStr = takeWhile (/= ',') info

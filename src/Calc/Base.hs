@@ -1,4 +1,4 @@
-module CalcParserBase
+module Calc.Base
   ( thenP
   , returnP
   , happyError
@@ -13,7 +13,9 @@ module CalcParserBase
   )
   where
 
-import CalcLexer
+----------------------------------------------------------------------------
+import Calc.Lexer
+----------------------------------------------------------------------------
 
 -- For readablity - this are the interface Happy expects:
 
@@ -25,6 +27,7 @@ thenP = (>>=)
 returnP :: a -> Parser a
 returnP = return
 
+alexShowError :: (Show t, Show t1) => (t, t1, Maybe String) -> Alex a
 alexShowError (line, column, e) = alexError $ "show-error: " ++ (show (line, column, e))
 
 alexGetPosition :: Alex (AlexPosn)
@@ -33,7 +36,7 @@ alexGetPosition = Alex $ \s@AlexState{alex_pos=pos} -> Right (s, pos)
 happyError :: Parser a
 happyError = do
   (AlexPn _ line col) <- alexGetPosition
-  alexShowError (line, col, "syntax error" :: String)
+  alexShowError (line, col, Nothing)
 
 -- Link the lexer and the parser:
 

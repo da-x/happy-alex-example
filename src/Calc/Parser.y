@@ -1,8 +1,8 @@
 {
-module CalcParser where
+module Calc.Parser where
 
-import CalcParserBase
-import CalcParserData
+import Calc.Base
+import Calc.Data
 }
 
 %name happyParser

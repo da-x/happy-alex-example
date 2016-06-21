@@ -1,13 +1,14 @@
-module CalcParserData
-    (
-      Exp(..)
+module Calc.Data
+    ( Exp(..)
     , Term(..)
     , Exp1(..)
     , Factor(..)
     , AlexPosn
     ) where
 
-import CalcLexer (AlexPosn)
+----------------------------------------------------------------------------
+import Calc.Lexer (AlexPosn)
+----------------------------------------------------------------------------
 
 data Exp  = Let AlexPosn String Exp Exp | Exp1 Exp1
     deriving (Show, Eq)
