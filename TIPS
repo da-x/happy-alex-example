@@ -1,5 +1,5 @@
 If you want stuff to pass ghc-mod syntax checking in emacs, do:
 
-ln -s dist/build/happy-alex-example/happy-alex-example-tmp/FancLexer.hs .
-ln -s dist/build/happy-alex-example/happy-alex-example-tmp/FancParser.hs .
+ln -s dist/build/happy-alex-example/happy-alex-example-tmp/CalcLexer.hs .
+ln -s dist/build/happy-alex-example/happy-alex-example-tmp/CalcParser.hs .
 
