@@ -1,1 +1,5 @@
 resolver: lts-6.4
+packages:
+- location: https://github.com/da-x/happy/archive/65c2494c77bd1bb321c1eb29b5117a975b1723a0.zip
+  extra-dep: true
+- .

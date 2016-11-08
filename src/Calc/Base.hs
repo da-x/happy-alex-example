@@ -1,7 +1,7 @@
 module Calc.Base
   ( thenP
   , returnP
-  , happyError
+  , handleErrorExpList
   , Parser
   , Token(..)
   , tokenToPosN
@@ -15,6 +15,7 @@ module Calc.Base
 
 ----------------------------------------------------------------------------
 import Calc.Lexer
+import Data.List (intersperse)
 ----------------------------------------------------------------------------
 
 -- For readablity - this are the interface Happy expects:
@@ -33,10 +34,13 @@ alexShowError (line, column, e) = alexError $ "show-error: " ++ (show (line, col
 alexGetPosition :: Alex (AlexPosn)
 alexGetPosition = Alex $ \s@AlexState{alex_pos=pos} -> Right (s, pos)
 
-happyError :: Parser a
-happyError = do
+handleErrorExpList :: (Token, [String]) -> Parser a
+handleErrorExpList (Token _ cls, opts) = do
   (AlexPn _ line col) <- alexGetPosition
-  alexShowError (line, col, Nothing)
+  let nextTokens xs = ", possible next tokens types: " ++ (concat $ intersperse " " xs)
+  alexShowError (line, col, Just $ "syntax error: got token "
+                 ++ (show $ tokenToStr cls)
+                 ++ nextTokens opts)
 
 -- Link the lexer and the parser:
 

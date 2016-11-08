@@ -10,6 +10,8 @@ import Calc.Data
 
 %monad { Parser } { thenP } { returnP }
 %lexer { lexer } { Token _ TokenEOF }
+%errorhandlertype explist
+%error { handleErrorExpList }
 
 %token
         let             { Token _ TokenLet      }
