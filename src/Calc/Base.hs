@@ -38,7 +38,7 @@ handleErrorExpList :: (Token, [String]) -> Parser a
 handleErrorExpList (Token _ cls, opts) = do
   (AlexPn _ line col) <- alexGetPosition
   let nextTokens xs = ", possible next tokens types: " ++ (concat $ intersperse " " xs)
-  alexShowError (line, col, Just $ "syntax error: got token "
+  alexShowError (line, col, Just $ "got token "
                  ++ (show $ tokenToStr cls)
                  ++ nextTokens opts)
 
