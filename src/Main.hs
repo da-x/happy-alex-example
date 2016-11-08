@@ -25,4 +25,5 @@ main = do
     test "1 + 2 + % 3" $ Left (Error {errLine = 1, errPos = 9, errClass = Lexical})
 
     -- Should fail in parser
-    test "1 + 2 + let 3" $ Left (Error {errLine = 1, errPos = 12, errClass = Syntactical Nothing})
+    test "1 + 2 + let 3" $ Left (Error {errLine = 1, errPos = 12, errClass = Syntactical (Just "syntax error: got token \"let\", possible next tokens types: int var '('")})
+

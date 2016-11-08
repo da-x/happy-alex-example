@@ -1,1 +1,4 @@
 resolver: lts-6.4
+packages:
+- location: https://github.com/simonmar/happy/archive/4aff81fc89a74fd57e3494d026e569e247919d99.zip
+- .

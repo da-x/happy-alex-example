@@ -21,6 +21,7 @@ module Calc.Lexer
   , alexMonadScan
   , runAlex
   , tokenToPosN
+  , tokenToStr
   )
 where
 
@@ -78,6 +79,20 @@ data TokenClass
  | TokenCB
  | TokenEOF
  deriving (Eq, Show)
+
+tokenToStr :: TokenClass -> String
+tokenToStr TokenLet         = "let"
+tokenToStr TokenIn          = "in"
+tokenToStr (TokenInt i)     = show i
+tokenToStr (TokenVar str)   = str
+tokenToStr TokenPlus        = "+"
+tokenToStr TokenMinus       = "-"
+tokenToStr TokenTimes       = "*"
+tokenToStr TokenDiv         = "/"
+tokenToStr TokenEq          = "="
+tokenToStr TokenOB          = "("
+tokenToStr TokenCB          = ")"
+tokenToStr TokenEOF         = "<eof>"
 
 alexEOF :: Alex Token
 alexEOF = do
