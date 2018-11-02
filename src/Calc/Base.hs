@@ -17,7 +17,7 @@ module Calc.Base
 import Calc.Lexer
 ----------------------------------------------------------------------------
 
--- For readablity - this are the interface Happy expects:
+-- For readablity - these are the interfaces Happy expects:
 
 type Parser a = Alex a
 
